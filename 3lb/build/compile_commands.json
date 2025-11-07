@@ -1,0 +1,8 @@
+[
+{
+  "directory": "D:/dolg_progr_2sem/3lb/build",
+  "command": "D:\\msys64\\mingw64\\bin\\c++.exe -g -o CMakeFiles\\3lb.dir\\main.cpp.obj -c D:\\dolg_progr_2sem\\3lb\\main.cpp",
+  "file": "D:\\dolg_progr_2sem\\3lb\\main.cpp",
+  "output": "CMakeFiles\\3lb.dir\\main.cpp.obj"
+}
+]
