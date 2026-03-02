@@ -1,0 +1,3 @@
+D:\msys64\mingw64\bin\cmake.exe -E rm -f CMakeFiles\4lb.dir/objects.a
+D:\msys64\mingw64\bin\ar.exe qc CMakeFiles\4lb.dir/objects.a @CMakeFiles\4lb.dir\objects1.rsp
+D:\msys64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\4lb.dir/objects.a -Wl,--no-whole-archive -o 4lb.exe -Wl,--out-implib,lib4lb.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\4lb.dir\linkLibs.rsp
