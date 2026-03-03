@@ -1,3 +1,0 @@
-D:/dolg_progr_2sem/build/CMakeFiles/4lb.dir
-D:/dolg_progr_2sem/build/CMakeFiles/edit_cache.dir
-D:/dolg_progr_2sem/build/CMakeFiles/rebuild_cache.dir
