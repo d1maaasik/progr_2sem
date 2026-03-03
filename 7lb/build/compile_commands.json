@@ -1,0 +1,20 @@
+[
+{
+  "directory": "D:/dolg_progr_2sem/7lb/build",
+  "command": "D:\\msys64\\mingw64\\bin\\c++.exe -g -std=gnu++17 -o CMakeFiles\\lab7.dir\\main.cpp.obj -c D:\\dolg_progr_2sem\\7lb\\main.cpp",
+  "file": "D:\\dolg_progr_2sem\\7lb\\main.cpp",
+  "output": "CMakeFiles\\lab7.dir\\main.cpp.obj"
+},
+{
+  "directory": "D:/dolg_progr_2sem/7lb/build",
+  "command": "D:\\msys64\\mingw64\\bin\\c++.exe -g -std=gnu++17 -o CMakeFiles\\lab7.dir\\rhombus.cpp.obj -c D:\\dolg_progr_2sem\\7lb\\rhombus.cpp",
+  "file": "D:\\dolg_progr_2sem\\7lb\\rhombus.cpp",
+  "output": "CMakeFiles\\lab7.dir\\rhombus.cpp.obj"
+},
+{
+  "directory": "D:/dolg_progr_2sem/7lb/build",
+  "command": "D:\\msys64\\mingw64\\bin\\c++.exe -g -std=gnu++17 -o CMakeFiles\\lab7.dir\\transformable_rhombus.cpp.obj -c D:\\dolg_progr_2sem\\7lb\\transformable_rhombus.cpp",
+  "file": "D:\\dolg_progr_2sem\\7lb\\transformable_rhombus.cpp",
+  "output": "CMakeFiles\\lab7.dir\\transformable_rhombus.cpp.obj"
+}
+]
