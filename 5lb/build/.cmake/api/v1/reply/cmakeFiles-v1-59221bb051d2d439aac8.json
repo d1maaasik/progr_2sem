@@ -1,4 +1,15 @@
 {
+	"globsDependent" : 
+	[
+		{
+			"expression" : "D:/dolg_progr_2sem/5lb/*.cpp",
+			"listDirectories" : true,
+			"paths" : 
+			[
+				"D:/dolg_progr_2sem/5lb/main.cpp"
+			]
+		}
+	],
 	"inputs" : 
 	[
 		{

@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.10.0"
+						"string" : "3.20"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "5lb::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-5lb-Debug-b5669384adf56a2c11c5.json",
+					"jsonFile" : "target-5lb-Debug-cfb349395c9de65d3e95.json",
 					"name" : "5lb",
 					"projectIndex" : 0
 				}

@@ -4,30 +4,28 @@
 #include <vector>
 #include <iomanip>
 #include <limits>
-
-using namespace std;
-
-// Перечисление для типа носителя
+#include <windows.h> 
+// перечисление типов носителей
 enum MediaType {
-    VINYL,      // грампластинка
-    CASSETTE,   // аудиокассета
-    CD          // лазерный диск
+    VINYL,
+    CASSETTE,
+    CD
 };
 
-// Структура музыкального товара
+// структура музыкального товара
 struct MusicProduct {
-    MediaType media;     // тип носителя
-    string title;        // название
-    string artist;       // исполнитель
-    int catalogNumber;   // порядковый номер в каталоге
-    double duration;     // время звучания (в минутах)
-    double price;        // цена
+    MediaType media;      // тип носителя
+    std::string title;    // название
+    std::string artist;   // исполнитель
+    int catalogNumber;    // номер в каталоге
+    double duration;      // длительность
+    double price;         // цена
 };
 
-// Глобальные переменные
-vector<MusicProduct*> catalog;  // каталог товаров (используем vector для удобства)
+// глобальный каталог товаров
+std::vector<MusicProduct*> catalog;
 
-// Функции
+// прототипы функций
 void displayMenu();
 void loadFromFile();
 void saveToFile();
@@ -36,22 +34,21 @@ void searchByField();
 void addProduct();
 void deleteProduct();
 void clearMemory();
-
-// Вспомогательные функции
 MediaType selectMediaType();
-string mediaTypeToString(MediaType type);
+std::string mediaTypeToString(MediaType type);
 void printProduct(const MusicProduct* product);
 
 int main() {
-    setlocale(LC_ALL, "Russian");
-    
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
+
     int choice;
     do {
-        displayMenu();
-        cout << "Выберите действие: ";
-        cin >> choice;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        
+        displayMenu(); // вывод меню
+        std::cout << "выберите действие: ";
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         switch (choice) {
             case 1: loadFromFile(); break;
             case 2: displayAll(); break;
@@ -59,322 +56,183 @@ int main() {
             case 4: addProduct(); break;
             case 5: deleteProduct(); break;
             case 6: saveToFile(); break;
-            case 0: cout << "Выход из программы.\n"; break;
-            default: cout << "Неверный выбор. Попробуйте снова.\n";
+            case 0: std::cout << "выход.\n"; break;
+            default: std::cout << "неверный выбор.\n";
         }
     } while (choice != 0);
-    
-    clearMemory();
+
+    clearMemory(); // освобождение памяти
     return 0;
 }
 
 void displayMenu() {
-    cout << "\n=== Меню управления каталогом музыкальных товаров ===\n";
-    cout << "1. Загрузить каталог из файла\n";
-    cout << "2. Показать все товары\n";
-    cout << "3. Поиск товара\n";
-    cout << "4. Добавить новый товар\n";
-    cout << "5. Удалить товар\n";
-    cout << "6. Сохранить каталог в файл\n";
-    cout << "0. Выход\n";
+    std::cout << "\n=== каталог музыкальных товаров ===\n";
+    std::cout << "1. загрузить из файла\n";
+    std::cout << "2. показать все\n";
+    std::cout << "3. поиск\n";
+    std::cout << "4. добавить\n";
+    std::cout << "5. удалить\n";
+    std::cout << "6. сохранить\n";
+    std::cout << "0. выход\n";
 }
 
 void loadFromFile() {
-    string filename;
-    cout << "Введите имя файла для загрузки: ";
-    getline(cin, filename);
-    
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cout << "Ошибка открытия файла!\n";
+    std::string filename;
+    std::cout << "имя файла: ";
+    std::getline(std::cin, filename);
+
+    std::ifstream file(filename);
+    if (!file) {
+        std::cout << "ошибка открытия файла.\n";
         return;
     }
-    
-    // Очищаем текущий каталог
-    clearMemory();
-    catalog.clear();
-    
-    MusicProduct* product;
+
+    clearMemory(); // очистка старых данных
+
     int media;
     while (file >> media) {
-        product = new MusicProduct();
-        product->media = static_cast<MediaType>(media);
+        MusicProduct* p = new MusicProduct();
+        p->media = static_cast<MediaType>(media);
         file.ignore();
-        getline(file, product->title);
-        getline(file, product->artist);
-        file >> product->catalogNumber;
-        file >> product->duration;
-        file >> product->price;
+        std::getline(file, p->title);
+        std::getline(file, p->artist);
+        file >> p->catalogNumber >> p->duration >> p->price;
         file.ignore();
-        
-        catalog.push_back(product);
+        catalog.push_back(p); // добавление в каталог
     }
-    
-    file.close();
-    cout << "Загружено " << catalog.size() << " товаров.\n";
+
+    std::cout << "загружено: " << catalog.size() << "\n";
 }
 
 void saveToFile() {
-    if (catalog.empty()) {
-        cout << "Каталог пуст. Нечего сохранять.\n";
+    std::string filename;
+    std::cout << "имя файла: ";
+    std::getline(std::cin, filename);
+
+    std::ofstream file(filename);
+    if (!file) {
+        std::cout << "ошибка создания файла.\n";
         return;
     }
-    
-    string filename;
-    cout << "Введите имя файла для сохранения: ";
-    getline(cin, filename);
-    
-    ofstream file(filename);
-    if (!file.is_open()) {
-        cout << "Ошибка создания файла!\n";
-        return;
+
+    // запись всех товаров
+    for (auto p : catalog) {
+        file << p->media << "\n"
+             << p->title << "\n"
+             << p->artist << "\n"
+             << p->catalogNumber << "\n"
+             << p->duration << "\n"
+             << p->price << "\n";
     }
-    
-    for (const auto& product : catalog) {
-        file << product->media << endl;
-        file << product->title << endl;
-        file << product->artist << endl;
-        file << product->catalogNumber << endl;
-        file << product->duration << endl;
-        file << product->price << endl;
-    }
-    
-    file.close();
-    cout << "Каталог сохранен (" << catalog.size() << " товаров).\n";
+
+    std::cout << "сохранено.\n";
 }
 
 void displayAll() {
     if (catalog.empty()) {
-        cout << "Каталог пуст.\n";
+        std::cout << "каталог пуст.\n";
         return;
     }
-    
-    cout << "\n=== Полный каталог музыкальных товаров ===\n";
-    cout << left << setw(5) << "№" << setw(15) << "Тип" << setw(25) << "Название" 
-         << setw(25) << "Исполнитель" << setw(10) << "Каталог" 
-         << setw(10) << "Длит." << setw(10) << "Цена" << endl;
-    cout << string(100, '-') << endl;
-    
-    for (size_t i = 0; i < catalog.size(); ++i) {
-        cout << setw(5) << i+1;
+
+    // вывод всех элементов
+    for (size_t i = 0; i < catalog.size(); i++) {
+        std::cout << i + 1 << ". ";
         printProduct(catalog[i]);
     }
 }
 
 void searchByField() {
-    if (catalog.empty()) {
-        cout << "Каталог пуст. Нечего искать.\n";
-        return;
-    }
-    
-    cout << "\nПоиск по:\n";
-    cout << "1. Типу носителя\n";
-    cout << "2. Названию\n";
-    cout << "3. Исполнителю\n";
-    cout << "4. Номеру в каталоге\n";
-    cout << "5. Времени звучания\n";
-    cout << "6. Цене\n";
-    cout << "Выберите поле для поиска: ";
-    
-    int choice;
-    cin >> choice;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    
-    bool found = false;
-    switch (choice) {
-        case 1: {
-            MediaType type = selectMediaType();
-            for (size_t i = 0; i < catalog.size(); ++i) {
-                if (catalog[i]->media == type) {
-                    if (!found) {
-                        cout << "\nРезультаты поиска:\n";
-                        found = true;
-                    }
-                    cout << i+1 << ". ";
-                    printProduct(catalog[i]);
-                }
-            }
-            break;
+    std::string keyword;
+    std::cout << "введите название для поиска: ";
+    std::getline(std::cin, keyword);
+
+    // поиск по названию
+    for (auto p : catalog) {
+        if (p->title.find(keyword) != std::string::npos) {
+            printProduct(p);
         }
-        case 2: {
-            string title;
-            cout << "Введите название: ";
-            getline(cin, title);
-            for (size_t i = 0; i < catalog.size(); ++i) {
-                if (catalog[i]->title.find(title) != string::npos) {
-                    if (!found) {
-                        cout << "\nРезультаты поиска:\n";
-                        found = true;
-                    }
-                    cout << i+1 << ". ";
-                    printProduct(catalog[i]);
-                }
-            }
-            break;
-        }
-        case 3: {
-            string artist;
-            cout << "Введите исполнителя: ";
-            getline(cin, artist);
-            for (size_t i = 0; i < catalog.size(); ++i) {
-                if (catalog[i]->artist.find(artist) != string::npos) {
-                    if (!found) {
-                        cout << "\nРезультаты поиска:\n";
-                        found = true;
-                    }
-                    cout << i+1 << ". ";
-                    printProduct(catalog[i]);
-                }
-            }
-            break;
-        }
-        case 4: {
-            int number;
-            cout << "Введите номер в каталоге: ";
-            cin >> number;
-            for (size_t i = 0; i < catalog.size(); ++i) {
-                if (catalog[i]->catalogNumber == number) {
-                    if (!found) {
-                        cout << "\nРезультаты поиска:\n";
-                        found = true;
-                    }
-                    cout << i+1 << ". ";
-                    printProduct(catalog[i]);
-                }
-            }
-            break;
-        }
-        case 5: {
-            double duration;
-            cout << "Введите время звучания: ";
-            cin >> duration;
-            for (size_t i = 0; i < catalog.size(); ++i) {
-                if (catalog[i]->duration == duration) {
-                    if (!found) {
-                        cout << "\nРезультаты поиска:\n";
-                        found = true;
-                    }
-                    cout << i+1 << ". ";
-                    printProduct(catalog[i]);
-                }
-            }
-            break;
-        }
-        case 6: {
-            double price;
-            cout << "Введите цену: ";
-            cin >> price;
-            for (size_t i = 0; i < catalog.size(); ++i) {
-                if (catalog[i]->price == price) {
-                    if (!found) {
-                        cout << "\nРезультаты поиска:\n";
-                        found = true;
-                    }
-                    cout << i+1 << ". ";
-                    printProduct(catalog[i]);
-                }
-            }
-            break;
-        }
-        default:
-            cout << "Неверный выбор.\n";
-            return;
-    }
-    
-    if (!found) {
-        cout << "Товары не найдены.\n";
     }
 }
 
 void addProduct() {
-    MusicProduct* product = new MusicProduct();
-    
-    cout << "\nДобавление нового товара:\n";
-    product->media = selectMediaType();
-    
-    cout << "Введите название: ";
-    getline(cin, product->title);
-    
-    cout << "Введите исполнителя: ";
-    getline(cin, product->artist);
-    
-    cout << "Введите номер в каталоге: ";
-    cin >> product->catalogNumber;
-    
-    cout << "Введите время звучания (в минутах): ";
-    cin >> product->duration;
-    
-    cout << "Введите цену: ";
-    cin >> product->price;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    
-    catalog.push_back(product);
-    cout << "Товар добавлен в каталог.\n";
+    MusicProduct* p = new MusicProduct();
+
+    p->media = selectMediaType();
+
+    std::cout << "название: ";
+    std::getline(std::cin, p->title);
+
+    std::cout << "исполнитель: ";
+    std::getline(std::cin, p->artist);
+
+    std::cout << "номер в каталоге: ";
+    std::cin >> p->catalogNumber;
+
+    std::cout << "длительность: ";
+    std::cin >> p->duration;
+
+    std::cout << "цена: ";
+    std::cin >> p->price;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    catalog.push_back(p); // добавление в вектор
+    std::cout << "добавлено.\n";
 }
 
 void deleteProduct() {
-    if (catalog.empty()) {
-        cout << "Каталог пуст. Нечего удалять.\n";
-        return;
-    }
-    
     displayAll();
-    cout << "Введите номер товара для удаления (1-" << catalog.size() << "): ";
+    std::cout << "номер для удаления: ";
     int index;
-    cin >> index;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    
-    if (index < 1 || index > static_cast<int>(catalog.size())) {
-        cout << "Неверный номер.\n";
+    std::cin >> index;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if (index < 1 || index > (int)catalog.size()) {
+        std::cout << "неверный номер.\n";
         return;
     }
-    
-    delete catalog[index-1];
+
+    delete catalog[index - 1]; // освобождение памяти
     catalog.erase(catalog.begin() + index - 1);
-    cout << "Товар удален.\n";
+    std::cout << "удалено.\n";
 }
 
 void clearMemory() {
-    for (auto& product : catalog) {
-        delete product;
-    }
+    // удаление всех элементов
+    for (auto p : catalog)
+        delete p;
     catalog.clear();
 }
 
 MediaType selectMediaType() {
     int choice;
-    cout << "Выберите тип носителя:\n";
-    cout << "1. Грампластинка\n";
-    cout << "2. Аудиокассета\n";
-    cout << "3. Лазерный диск\n";
-    cout << "Ваш выбор: ";
-    cin >> choice;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    
+    std::cout << "1 - винил\n2 - кассета\n3 - cd\nвыбор: ";
+    std::cin >> choice;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     switch (choice) {
         case 1: return VINYL;
         case 2: return CASSETTE;
         case 3: return CD;
-        default:
-            cout << "Неверный выбор. Установлен тип по умолчанию (грампластинка).\n";
-            return VINYL;
+        default: return VINYL;
     }
 }
 
-string mediaTypeToString(MediaType type) {
+std::string mediaTypeToString(MediaType type) {
     switch (type) {
-        case VINYL: return "Грампластинка";
-        case CASSETTE: return "Аудиокассета";
-        case CD: return "Лазерный диск";
-        default: return "Неизвестно";
+        case VINYL: return "винил";
+        case CASSETTE: return "кассета";
+        case CD: return "cd";
+        default: return "неизвестно";
     }
 }
 
-void printProduct(const MusicProduct* product) {
-    cout << left << setw(15) << mediaTypeToString(product->media)
-         << setw(25) << product->title
-         << setw(25) << product->artist
-         << setw(10) << product->catalogNumber
-         << setw(10) << fixed << setprecision(2) << product->duration
-         << setw(10) << product->price << endl;
+void printProduct(const MusicProduct* p) {
+    // вывод информации о товаре
+    std::cout << mediaTypeToString(p->media) << " | "
+              << p->title << " | "
+              << p->artist << " | "
+              << p->catalogNumber << " | "
+              << std::fixed << std::setprecision(2)
+              << p->duration << " мин | "
+              << p->price << " руб\n";
 }

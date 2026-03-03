@@ -1,5 +1,14 @@
 # ninja log v6
-2	502	7769551744748536	CMakeFiles/5lb.dir/main.cpp.obj	9d7b5c2d1d5a4f76
-504	657	7769551749762971	5lb.exe	615335c438750871
-26	509	7841461377828250	CMakeFiles/5lb.dir/main.cpp.obj	9d7b5c2d1d5a4f76
-509	622	7841461382652670	5lb.exe	615335c438750871
+44	546	7942230506830409	CMakeFiles/5lb.dir/main.cpp.obj	54f756aef6eb2211
+546	660	7942230511852608	5lb.exe	615335c438750871
+23	49	7942230575516233	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+41	76	7942237900649294	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+80	2156	7942237901039276	CMakeFiles/5lb.dir/main.cpp.obj	54f756aef6eb2211
+2158	2482	7942237921817866	5lb.exe	615335c438750871
+44	84	7942237950414584	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+23	65	7942239445039060	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+18	54	7942239567581629	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+19	58	7942239590510454	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+24	74	7942239609125951	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+28	60	7942239785447884	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792
+36	77	7942240054442078	D:/dolg_progr_2sem/5lb/build/CMakeFiles/cmake.verify_globs	520f18d4179b6792

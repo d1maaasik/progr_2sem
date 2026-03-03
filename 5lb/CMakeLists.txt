@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.10.0)
-project(5lb VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.20)
+project(5lb)
 
-add_executable(5lb main.cpp)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+file(GLOB SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+add_executable(5lb ${SOURCES})

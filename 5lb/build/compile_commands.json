@@ -1,7 +1,7 @@
 [
 {
   "directory": "D:/dolg_progr_2sem/5lb/build",
-  "command": "D:\\msys64\\mingw64\\bin\\c++.exe -g -o CMakeFiles\\5lb.dir\\main.cpp.obj -c D:\\dolg_progr_2sem\\5lb\\main.cpp",
+  "command": "D:\\msys64\\mingw64\\bin\\c++.exe -g -std=gnu++17 -o CMakeFiles\\5lb.dir\\main.cpp.obj -c D:\\dolg_progr_2sem\\5lb\\main.cpp",
   "file": "D:\\dolg_progr_2sem\\5lb\\main.cpp",
   "output": "CMakeFiles\\5lb.dir\\main.cpp.obj"
 }
