@@ -1,0 +1,8 @@
+[
+{
+  "directory": "D:/dolg_progr_2sem/8lb/build",
+  "command": "D:\\msys64\\mingw64\\bin\\g++.exe   -g -std=c++17 -o CMakeFiles\\lab8.dir\\main.cpp.obj -c D:\\dolg_progr_2sem\\8lb\\main.cpp",
+  "file": "D:/dolg_progr_2sem/8lb/main.cpp",
+  "output": "CMakeFiles/lab8.dir/main.cpp.obj"
+}
+]
