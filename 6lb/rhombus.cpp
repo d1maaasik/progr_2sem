@@ -1,58 +1,56 @@
 #include "rhombus.h"
 #include <iostream>
 #include <cmath>
-#include <algorithm>
 
-using namespace std;
-
-Rhombus::Rhombus(double x1, double y1, double x2, double y2, double x3, double y3) 
+Rhombus::Rhombus(double x1, double y1, double x2, double y2, double x3, double y3)
     : x1(x1), y1(y1), x2(x2), y2(y2), x3(x3), y3(y3) {
     calculateFourthVertex();
 }
 
 void Rhombus::calculateFourthVertex() {
-    double centerX = (x1 + x3) / 2;
-    double centerY = (y1 + y3) / 2;
-    x4 = 2 * centerX - x2;
-    y4 = 2 * centerY - y2;
+    // считаем 4-ю вершину через середину диагонали ac
+    const double center_x = (x1 + x3) / 2.0;
+    const double center_y = (y1 + y3) / 2.0;
+
+    x4 = 2.0 * center_x - x2;
+    y4 = 2.0 * center_y - y2;
 }
 
 void Rhombus::printParameters() const {
-    cout << "Ромб с вершинами:\n";
-    cout << "A(" << x1 << ", " << y1 << ")\n";
-    cout << "B(" << x2 << ", " << y2 << ")\n";
-    cout << "C(" << x3 << ", " << y3 << ")\n";
-    cout << "D(" << x4 << ", " << y4 << ")\n";
-    cout << "Площадь: " << calculateArea() << endl;
+    std::cout << "Ромб с вершинами:\n";
+    std::cout << "A(" << x1 << ", " << y1 << ")\n";
+    std::cout << "B(" << x2 << ", " << y2 << ")\n";
+    std::cout << "C(" << x3 << ", " << y3 << ")\n";
+    std::cout << "D(" << x4 << ", " << y4 << ")\n";
+    std::cout << "Площадь: " << calculateArea() << std::endl;
 }
 
 bool Rhombus::isPointOnBorder(double x, double y, double epsilon) const {
-    // Проверяем принадлежность точки к каждой из 4 сторон
-    
-    // Сторона AB
-    double AB = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-    double AP = sqrt(pow(x - x1, 2) + pow(y - y1, 2));
-    double PB = sqrt(pow(x2 - x, 2) + pow(y2 - y, 2));
-    if (abs(AP + PB - AB) < epsilon) return true;
-    
-    // Сторона BC
-    double BC = sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2));
-    double BP = sqrt(pow(x - x2, 2) + pow(y - y2, 2));
-    double PC = sqrt(pow(x3 - x, 2) + pow(y3 - y, 2));
-    if (abs(BP + PC - BC) < epsilon) return true;
-    
-    // Сторона CD
-    double CD = sqrt(pow(x4 - x3, 2) + pow(y4 - y3, 2));
-    double CP = sqrt(pow(x - x3, 2) + pow(y - y3, 2));
-    double PD = sqrt(pow(x4 - x, 2) + pow(y4 - y, 2));
-    if (abs(CP + PD - CD) < epsilon) return true;
-    
-    // Сторона DA
-    double DA = sqrt(pow(x1 - x4, 2) + pow(y1 - y4, 2));
-    double DP = sqrt(pow(x - x4, 2) + pow(y - y4, 2));
-    double PA = sqrt(pow(x1 - x, 2) + pow(y1 - y, 2));
-    if (abs(DP + PA - DA) < epsilon) return true;
-    
+    // проверяем, лежит ли точка на одной из сторон по сумме расстояний
+    const auto dist = [](double ax, double ay, double bx, double by) {
+        return std::sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay));
+    };
+
+    const double ab = dist(x1, y1, x2, y2);
+    const double ap = dist(x1, y1, x, y);
+    const double pb = dist(x, y, x2, y2);
+    if (std::abs(ap + pb - ab) < epsilon) return true;
+
+    const double bc = dist(x2, y2, x3, y3);
+    const double bp = dist(x2, y2, x, y);
+    const double pc = dist(x, y, x3, y3);
+    if (std::abs(bp + pc - bc) < epsilon) return true;
+
+    const double cd = dist(x3, y3, x4, y4);
+    const double cp = dist(x3, y3, x, y);
+    const double pd = dist(x, y, x4, y4);
+    if (std::abs(cp + pd - cd) < epsilon) return true;
+
+    const double da = dist(x4, y4, x1, y1);
+    const double dp = dist(x4, y4, x, y);
+    const double pa = dist(x, y, x1, y1);
+    if (std::abs(dp + pa - da) < epsilon) return true;
+
     return false;
 }
 
@@ -73,7 +71,7 @@ bool Rhombus::intersectsYAxis() const {
 }
 
 double Rhombus::calculateArea() const {
-    double d1 = sqrt(pow(x3 - x1, 2) + pow(y3 - y1, 2));
-    double d2 = sqrt(pow(x4 - x2, 2) + pow(y4 - y2, 2));
-    return (d1 * d2) / 2;
+    const double d1 = std::sqrt((x3 - x1) * (x3 - x1) + (y3 - y1) * (y3 - y1));
+    const double d2 = std::sqrt((x4 - x2) * (x4 - x2) + (y4 - y2) * (y4 - y2));
+    return (d1 * d2) / 2.0;
 }

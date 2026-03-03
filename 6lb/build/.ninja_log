@@ -1,7 +1,6 @@
 # ninja log v6
-20	241	7772156763908332	CMakeFiles/6lb.dir/main.cpp.obj	19620ef41c068514
-12	240	7772156907016757	CMakeFiles/rhombus_program.dir/main.cpp.obj	f03ba049695ebf5a
-17	299	7772156907066674	CMakeFiles/rhombus_program.dir/rhombus.cpp.obj	21ecccf24ccc24eb
-299	419	7772156909872260	rhombus_program.exe	7cc3006d7e3c6b92
-27	266	7841430226852123	CMakeFiles/rhombus_program.dir/main.cpp.obj	f03ba049695ebf5a
-266	387	7841430229244528	rhombus_program.exe	7cc3006d7e3c6b92
+41	455	7942309485254395	CMakeFiles/rhombus_program.dir/main.cpp.obj	24517c9bb974be27
+61	680	7942308292517985	CMakeFiles/rhombus_program.dir/rhombus.cpp.obj	b2a32473a3ec63ca
+455	614	7942309489395125	rhombus_program.exe	7cc3006d7e3c6b92
+24	1781	7942311530013050	CMakeFiles/rhombus_program.dir/main.cpp.obj	24517c9bb974be27
+1783	1938	7942311547597326	rhombus_program.exe	7cc3006d7e3c6b92
